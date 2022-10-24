@@ -6,7 +6,7 @@ const Blockchain      = require('./ori.blockchain.js' )
 const Transaction     = require('./ori.transaction.js')
 const BlockchainNode  = require('./ori.node.js')
 const fetch           = require('node-fetch')
-
+const axios           = require('axios').default;
 const genesisBlock    = new Block()
 const ori             = new Blockchain(genesisBlock)
 let   PORT            = process.env.PORT
@@ -14,21 +14,17 @@ let   transactions    = []
 let   allTransactions = []
 let   nodes           = []
 
-const FETCH_BLOCKHAIN = (url)=>{
-
-  fetch(`${url}blockchain`).then((res)=>res.json())
-  .then(otherBlockchain=>{
-
-    console.log('--------------------------\n')
-    console.log(otherBlockchain.blocks)
-    console.log('--------------------------\n')
-
-  })
-}
 
 require('dotenv').config()
 app.use(express.json())
 
+const FECTH_BLOCKCHAIN = async(node)=>{
+
+  const response = await fetch(`${node.url}blockchain`)
+  const body = await response.json()
+  console.log(body)
+
+}
 if(process.argv.length > 2){PORT=process.argv[2]}
 
 if(PORT == 8081){
@@ -42,7 +38,7 @@ if(PORT == 8081){
   ori.addBlock(secBlock)
 }
 if(PORT == 8080){
-  const node    = new BlockchainNode("http://localhost:8181/".trim())
+  const node    = new BlockchainNode("http://localhost:8081/".trim())
   nodes.push(node)
 
   const init_transac = new Transaction('Robotaaaa','ruikiii',456)
@@ -76,7 +72,8 @@ app.get('/nodes/list',(request,response)=>{
 app.get('/resolve',(_,response)=>{
   
     nodes.forEach((node)=>{
-      FETCH_BLOCKHAIN(node.url)
+
+      FECTH_BLOCKCHAIN(node)
     })
 
     response.send('Merge Blockchain to one')
