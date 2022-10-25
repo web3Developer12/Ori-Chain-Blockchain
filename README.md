@@ -1,1 +1,1 @@
-Orichain is a decentralized blockchain platform that establishes a peer-to-peer network between all network nodes. The blockchain uses the POW consesnsus algorithm where nodes compete to solve a mathematical puzzle. The blockchain has its own cryptocurrency called oricoins. 
+Orichain is a decentralized blockchain platform that establishes a peer-to-peer network between all network nodes. The blockchain uses the POW consesnsus algorithm where nodes compete to solve a mathematical puzzle. The blockchain has its own cryptocurrency the oricoin. 
